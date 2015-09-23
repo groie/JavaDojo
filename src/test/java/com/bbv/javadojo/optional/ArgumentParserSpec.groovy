@@ -38,11 +38,10 @@ class ArgumentParserSpec extends Specification {
     @Unroll("getString 's' and '#args' returns '#expectations'")
     def "get String test"(){
         when:
-        def parser = new ArgumentParser("s", args as String[])
+        def parser = new ArgumentParser("s*", args as String[])
 
         then:
         parser != null
-        parser.getString("s" as char) != null
         parser.getString("s" as char) == expectation
 
         where:
