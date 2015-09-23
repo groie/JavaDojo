@@ -3,6 +3,7 @@ package com.bbv.javadojo.optional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -23,21 +24,25 @@ public class ArgumentParser {
         return keyExists(arg);
     }
 
-    //  - char*   - String arg.
     public String getString(final char arg) {
-        return getValueForKey(arg).orElse(null);
+        return getTypedValue(arg, String::valueOf);
     }
 
     public int getInt(final char arg) {
-        try {
-            return getValueForKey(arg).map(Integer::valueOf).orElse(null);
-        } catch (NumberFormatException e) {
-            throw new ArgsException(format("%s could not be parsed as an integer", getString(arg)), e);
-        }
+        return getTypedValue(arg, Integer::valueOf);
     }
 
     public double getDouble(final char arg) {
-        return 0.0;
+        return getTypedValue(arg, Double::valueOf);
+    }
+
+    private <T> T getTypedValue(final char arg, Function<String, T> converter) {
+        try {
+            Optional<String> valueForKey = getValueForKey(arg);
+            return valueForKey.map(converter).orElse(null);
+        } catch (NumberFormatException e) {
+            throw new ArgsException(format("%s could not be parsed with the given converter", getValueForKey(arg)), e);
+        }
     }
 
     public String[] getStringArray(final char arg) {
