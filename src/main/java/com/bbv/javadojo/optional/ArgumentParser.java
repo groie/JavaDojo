@@ -18,14 +18,13 @@ public class ArgumentParser {
     }
 
     public boolean getBoolean(final char arg) {
-        return args.contains("-" + arg);
+        return args.contains(keyOf(arg));
     }
 
     //  - char*   - String arg.
     public String getString(final char arg) {
-        final String key = "-" + arg;
         // TODO: we could still have multiple matches
-        int idx = args.indexOf(key);
+        int idx = args.indexOf(keyOf(arg));
         return idx == -1 ? null : args.get(idx +1);
     }
 
@@ -48,5 +47,9 @@ public class ArgumentParser {
     public int nextArgument() {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    private static String keyOf(final char arg) {
+        return "-" + arg;
     }
 }
