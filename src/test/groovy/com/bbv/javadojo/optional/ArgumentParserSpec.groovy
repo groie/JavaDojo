@@ -75,4 +75,31 @@ class ArgumentParserSpec extends Specification {
         where:
         args << [["-s", "dsadsa"], ["-s", ""], ["-s", null], ["-s", "1.2"]]
     }
+
+    @Unroll("getDouble 's' and '#args' returns '#expectations'")
+    def "getDouble test"(){
+        when:
+        def parser = new ArgumentParser("s#", args as String[])
+
+        then:
+        parser != null
+        parser.getDouble("s" as char) == expectation
+
+        where:
+        args << [["-s", "1"], ["-s", "0.1"]]
+        expectation << [1, 0.1]
+    }
+
+    @Unroll("getDouble 's' and '#args' throws ArgsException")
+    def "getDouble test exceptions"(){
+        when:
+        def parser = new ArgumentParser("s#", args as String[])
+        parser.getDouble("s" as char)
+
+        then:
+        thrown(ArgsException)
+
+        where:
+        args << [["-s", "dsadsa"], ["-s", ""], ["-s", null], ["-s", "1.2xd"]]
+    }
 }
