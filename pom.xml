@@ -15,5 +15,17 @@
         <scope>test</scope>
         <version>4.12</version>
     </dependency>
+    <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <scope>test</scope>
+        <version>2.4.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.spockframework</groupId>
+        <artifactId>spock-core</artifactId>
+        <scope>test</scope>
+        <version>1.0-groovy-2.4</version>
+    </dependency>
     </dependencies>
 </project>
