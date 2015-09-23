@@ -24,7 +24,7 @@ class ArgumentParserSpec extends Specification {
     @Unroll("getBoolean '#schema' and '#args' returns '#expectetations'")
     def "get boolean test"() {
         when:
-        def parser = new ArgumentParser(schema, args);
+        def parser = new ArgumentParser(schema, args as String[]);
 
         then:
         parser != null
@@ -32,7 +32,7 @@ class ArgumentParserSpec extends Specification {
 
         where:
         schema << ["f", "f"]
-        args   << ["-f", ""]
+        args   << [["-f"], [""]]
         expectetations << [true, false]
     }
 }
