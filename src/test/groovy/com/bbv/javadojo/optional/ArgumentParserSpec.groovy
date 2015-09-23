@@ -48,4 +48,31 @@ class ArgumentParserSpec extends Specification {
         args << [["-s", "bla"], []]
         expectation << ["bla", null]
     }
+
+    @Unroll("getInt 's' and '#args' returns '#expectations'")
+    def "getInt test"(){
+        when:
+        def parser = new ArgumentParser("s#", args as String[])
+
+        then:
+        parser != null
+        parser.getInt("s" as char) == expectation
+
+        where:
+        args << [["-s", "1"], ["-s", "0"]]
+        expectation << [1, 0]
+    }
+
+    @Unroll("getInt 's' and '#args' throws ArgsException")
+    def "getInt test exceptions"(){
+        when:
+        def parser = new ArgumentParser("s#", args as String[])
+        parser.getInt("s" as char)
+
+        then:
+        thrown(ArgsException)
+
+        where:
+        args << [["-s", "dsadsa"], ["-s", ""], ["-s", null], ["-s", "1.2"]]
+    }
 }
