@@ -8,7 +8,7 @@ import spock.lang.Unroll
  */
 class ArgumentParserSpec extends Specification {
 
-    @Unroll("Constructor with #schema and #args fails")
+    @Unroll("Constructor with '#schema' and '#args' fails")
     def "failed test constructor"() {
         when:
         new ArgumentParser(schema, args);
@@ -17,11 +17,11 @@ class ArgumentParserSpec extends Specification {
         thrown(ArgsException)
 
         where:
-        schema << [null]
-        args << [null]
+        schema << [null, null, ""  ]
+        args   << [null, ""  , null]
     }
 
-    @Unroll("Constructor with #schema and #args succeeds")
+    @Unroll("Constructor with '#schema' and '#args' succeeds")
     def "successful test constructor"() {
         when:
         def parser = new ArgumentParser(schema, args);
