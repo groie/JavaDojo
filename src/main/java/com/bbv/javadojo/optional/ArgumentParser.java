@@ -24,8 +24,12 @@ public class ArgumentParser {
         return asList(args).contains(valueOf("-" + arg));
     }
 
+    //  - char*   - String arg.
     public String getString(final char arg) {
-        return "";
+        final String key = "-" + arg;
+        Stream<String> potentialMatches = Arrays.asList(args).stream().filter(s -> s.startsWith(key));
+        Stream<String> stringStream = potentialMatches.map(s -> s.substring(key.length()+1));
+        return stringStream.findFirst().orElse(null);
     }
 
     public int getInt(final char arg) {
