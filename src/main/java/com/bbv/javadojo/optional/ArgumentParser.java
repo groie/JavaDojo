@@ -3,7 +3,6 @@ package com.bbv.javadojo.optional;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.valueOf;
 import static java.util.Arrays.asList;
 
 public class ArgumentParser {
@@ -19,7 +18,7 @@ public class ArgumentParser {
     }
 
     public boolean getBoolean(final char arg) {
-        return args.contains(valueOf("-" + arg));
+        return args.contains("-" + arg);
     }
 
     //  - char*   - String arg.
