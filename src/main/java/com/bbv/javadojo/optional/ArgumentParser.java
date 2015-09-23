@@ -3,6 +3,8 @@ package com.bbv.javadojo.optional;
 import java.util.Map;
 public class ArgumentParser {
     public ArgumentParser(final String schema, final String[] args) {
+        if (schema == null || args == null)
+            throw new ArgsException("constructor parameters may not be null");
     }
 
     public boolean getBoolean(final char arg) {
