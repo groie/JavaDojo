@@ -45,7 +45,7 @@ class ArgumentParserSpec extends Specification {
         parser.getString("s" as char) == expectation
 
         where:
-        args << [["-s bla"], []]
+        args << [["-s", "bla"], []]
         expectation << ["bla", null]
     }
 }

@@ -1,9 +1,7 @@
 package com.bbv.javadojo.optional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
 import static java.util.Arrays.asList;
@@ -27,10 +25,9 @@ public class ArgumentParser {
     //  - char*   - String arg.
     public String getString(final char arg) {
         final String key = "-" + arg;
-        Stream<String> potentialMatches = args.stream().filter(s -> s.startsWith(key));
-        Stream<String> stringStream = potentialMatches.map(s -> s.substring(key.length()+1));
         // TODO: we could still have multiple matches
-        return stringStream.findFirst().orElse(null);
+        int idx = args.indexOf(key);
+        return idx == -1 ? null : args.get(idx +1);
     }
 
     public int getInt(final char arg) {
