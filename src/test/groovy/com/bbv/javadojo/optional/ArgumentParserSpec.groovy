@@ -35,7 +35,7 @@ class ArgumentParserSpec extends Specification {
         expectetations << [true, false]
     }
 
-    @Unroll("getString 's' and '#args' returns '#expectations'")
+    @Unroll("getString 's' and '#args' returns '#expectation'")
     def "get String test"(){
         when:
         def parser = new ArgumentParser("s*", args as String[])
@@ -49,7 +49,7 @@ class ArgumentParserSpec extends Specification {
         expectation << ["bla", null]
     }
 
-    @Unroll("getInt 's' and '#args' returns '#expectations'")
+    @Unroll("getInt 's' and '#args' returns '#expectation'")
     def "getInt test"(){
         when:
         def parser = new ArgumentParser("s#", args as String[])
