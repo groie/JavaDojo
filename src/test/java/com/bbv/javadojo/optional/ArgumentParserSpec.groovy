@@ -21,16 +21,18 @@ class ArgumentParserSpec extends Specification {
         args   << [null, ""  , null]
     }
 
-    @Unroll("Constructor with '#schema' and '#args' succeeds")
-    def "successful test constructor"() {
+    @Unroll("getBoolean '#schema' and '#args' returns '#expectetations'")
+    def "get boolean test"() {
         when:
         def parser = new ArgumentParser(schema, args);
 
         then:
         parser != null
+        parser.getBoolean('f' as char) == expectetations
 
         where:
-        schema << ["f,s*,n#,a##,p[*]"]
-        args << ["-f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3"]
+        schema << ["f", "f"]
+        args   << ["-f", ""]
+        expectetations << [true, false]
     }
 }
