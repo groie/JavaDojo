@@ -17,8 +17,8 @@ class ArgumentParserSpec extends Specification {
         thrown(ArgsException)
 
         where:
-        schema << [null, null, "", ""  ]
-        args   << [null, [""]  , null, [null]]
+        schema << [null, null, "",   ""]
+        args   << [null, [""], null, [null]]
     }
 
     @Unroll("getBoolean 'f' and '#args' returns '#expectetations'")
