@@ -1,6 +1,7 @@
 package com.bbv.javadojo.optional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -9,26 +10,26 @@ import static java.util.Arrays.asList;
 
 public class ArgumentParser {
 
-
     private final String schema;
-    private final String[] args;
+    private final List<String> args;
 
     public ArgumentParser(final String schema, final String[] args) {
         if (schema == null || args == null || asList(args).contains(null))
             throw new ArgsException("constructor parameters may not be null");
         this.schema = schema;
-        this.args = args;
+        this.args = asList(args);
     }
 
     public boolean getBoolean(final char arg) {
-        return asList(args).contains(valueOf("-" + arg));
+        return args.contains(valueOf("-" + arg));
     }
 
     //  - char*   - String arg.
     public String getString(final char arg) {
         final String key = "-" + arg;
-        Stream<String> potentialMatches = Arrays.asList(args).stream().filter(s -> s.startsWith(key));
+        Stream<String> potentialMatches = args.stream().filter(s -> s.startsWith(key));
         Stream<String> stringStream = potentialMatches.map(s -> s.substring(key.length()+1));
+        // TODO: we could still have multiple matches
         return stringStream.findFirst().orElse(null);
     }
 
