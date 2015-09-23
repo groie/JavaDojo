@@ -11,28 +11,42 @@ class ArgumentParserSpec extends Specification {
     @Unroll("Constructor with '#schema' and '#args' fails")
     def "failed test constructor"() {
         when:
-        new ArgumentParser(schema, args);
+        new ArgumentParser(schema, args as String[]);
 
         then:
         thrown(ArgsException)
 
         where:
-        schema << [null, null, ""  ]
-        args   << [null, ""  , null]
+        schema << [null, null, "", ""  ]
+        args   << [null, [""]  , null, [null]]
     }
 
-    @Unroll("getBoolean '#schema' and '#args' returns '#expectetations'")
+    @Unroll("getBoolean 'f' and '#args' returns '#expectetations'")
     def "get boolean test"() {
         when:
-        def parser = new ArgumentParser(schema, args as String[]);
+        def parser = new ArgumentParser("f", args as String[]);
 
         then:
         parser != null
         parser.getBoolean('f' as char) == expectetations
 
         where:
-        schema << ["f", "f"]
         args   << [["-f"], [""]]
         expectetations << [true, false]
+    }
+
+    @Unroll("getString 's' and '#args' returns '#expectations'")
+    def "get String test"(){
+        when:
+        def parser = new ArgumentParser("s", args as String[])
+
+        then:
+        parser != null
+        parser.getString("s" as char) != null
+        parser.getString("s" as char) == expectation
+
+        where:
+        args << [["-s bla"], []]
+        expectation << ["bla", null]
     }
 }
