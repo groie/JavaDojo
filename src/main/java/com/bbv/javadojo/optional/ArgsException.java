@@ -8,6 +8,10 @@ public class ArgsException extends RuntimeException {
         super(message);
     }
 
+    public ArgsException(String message, Exception cause) {
+        super(message, cause);
+    }
+
     public Object errorMessage() {
         return super.getMessage();
     }
