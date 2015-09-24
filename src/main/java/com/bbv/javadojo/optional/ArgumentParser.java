@@ -11,13 +11,13 @@ import static java.util.Arrays.asList;
 
 public class ArgumentParser {
 
-    private final String schema;
+    private final Schema schema;
     private final List<String> args;
 
     public ArgumentParser(final String schema, final String[] args) {
         if (schema == null || args == null || asList(args).contains(null) || args.length == 0)
             throw new ArgsException("constructor parameters may not be null or empty");
-        this.schema = schema;
+        this.schema = new Schema(schema);
         this.args = asList(args);
     }
 
