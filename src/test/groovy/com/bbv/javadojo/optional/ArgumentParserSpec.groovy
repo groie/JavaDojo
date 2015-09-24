@@ -102,4 +102,18 @@ class ArgumentParserSpec extends Specification {
         where:
         args << [["-s", "dsadsa"], ["-s", ""], ["-s", null], ["-s", "1.2xd"]]
     }
+
+    @Unroll("getStringArray 's' and '#args' returns #expectations")
+    def "getStringArray test success"(){
+        when:
+        def parser = new ArgumentParser("s[*]", args as String[])
+        def result = Arrays.asList(parser.getStringArray("s" as char));
+
+        then:
+        result == expectations
+
+        where:
+        args << [["-s", "first", "-s", "second"]]
+        expectations << [["first", "second"]]
+    }
 }
