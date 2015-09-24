@@ -15,8 +15,8 @@ public class ArgumentParser {
     private final List<String> args;
 
     public ArgumentParser(final String schema, final String[] args) {
-        if (schema == null || args == null || asList(args).contains(null))
-            throw new ArgsException("constructor parameters may not be null");
+        if (schema == null || args == null || asList(args).contains(null) || args.length == 0)
+            throw new ArgsException("constructor parameters may not be null or empty");
         this.schema = schema;
         this.args = asList(args);
     }
