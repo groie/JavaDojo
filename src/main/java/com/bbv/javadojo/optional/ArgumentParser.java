@@ -1,5 +1,6 @@
 package com.bbv.javadojo.optional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,7 +47,8 @@ public class ArgumentParser {
     }
 
     public String[] getStringArray(final char arg) {
-        return null;
+        List<String> valuesForKey = getValuesForKey(arg);
+        return valuesForKey.toArray(new String[valuesForKey.size()]);
     }
 
     public Map<String, String> getMap(final char arg) {
@@ -61,6 +63,19 @@ public class ArgumentParser {
     private boolean keyExists(char key) {
         return args.contains(keyOf(key));
     }
+
+    private List<String> getValuesForKey(char arg) {
+        String key = keyOf(arg);
+        List<String> result = new ArrayList<>();
+        for(int i = 0 ; i < args.size() ; i++) {
+            String param = args.get(i);
+            if (param.equals(key)) {
+                result.add(args.get(i+1));
+            }
+        }
+        return result;
+    }
+
 
     private Optional<String> getValueForKey(char key) {
         int idx = args.indexOf(keyOf(key));
