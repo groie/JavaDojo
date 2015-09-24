@@ -45,8 +45,8 @@ class ArgumentParserSpec extends Specification {
         parser.getString("s" as char) == expectation
 
         where:
-        args << [["-s", "bla"], []]
-        expectation << ["bla", null]
+        args << [["-s", "bla"], ["-s", "bla", "-s", "bla2"]]
+        expectation << ["bla", "bla"]
     }
 
     @Unroll("getInt 's' and '#args' returns '#expectation'")
@@ -76,10 +76,10 @@ class ArgumentParserSpec extends Specification {
         args << [["-s", "dsadsa"], ["-s", ""], ["-s", null], ["-s", "1.2"]]
     }
 
-    @Unroll("getDouble 's' and '#args' returns '#expectations'")
+    @Unroll("getDouble 's' and '#args' returns '#expectation'")
     def "getDouble test"(){
         when:
-        def parser = new ArgumentParser("s#", args as String[])
+        def parser = new ArgumentParser("s##", args as String[])
 
         then:
         parser != null
@@ -93,7 +93,7 @@ class ArgumentParserSpec extends Specification {
     @Unroll("getDouble 's' and '#args' throws ArgsException")
     def "getDouble test exceptions"(){
         when:
-        def parser = new ArgumentParser("s#", args as String[])
+        def parser = new ArgumentParser("s##", args as String[])
         parser.getDouble("s" as char)
 
         then:
